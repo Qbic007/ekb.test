@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\SolutionForm;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -61,7 +62,16 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $model = new SolutionForm();
+        if ($model->load(Yii::$app->request->post()) && $solution = $model->findSolution()) {
+            return $this->render('solution', [
+                'solution' => $solution,
+            ]);
+        }
+
+        return $this->render('index', [
+            'model' => $model,
+        ]);
     }
 
     /**

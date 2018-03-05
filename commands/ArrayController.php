@@ -39,8 +39,8 @@ class ArrayController extends Controller
             return (int)$item;
         }, $array);
 
-        $solution = new ArrayWalker($number, $array);
-        $solution = $solution->solution();
+        $arrayWalker = new ArrayWalker($number, $array);
+        $solution = $arrayWalker->solution();
 
         echo $solution . "\n";
 

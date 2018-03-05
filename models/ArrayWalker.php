@@ -54,7 +54,7 @@ class ArrayWalker
         $this->size = $this->right_key + 1;
     }
 
-    protected function step_left()
+    protected function stepLeft()
     {
         if ($this->number == $this->array[$this->left_key]) {
             $this->counter++;
@@ -62,7 +62,7 @@ class ArrayWalker
         $this->left_key++;
     }
 
-    protected function step_right()
+    protected function stepRight()
     {
         if ($this->number != $this->array[$this->right_key]) {
             $this->counter--;
@@ -77,10 +77,10 @@ class ArrayWalker
     {
         for ($i = 0; $i < $this->size; $i++) {
             if ($this->counter == 0) {
-                $this->step_left();
+                $this->stepLeft();
                 continue;
             }
-            $this->step_right();
+            $this->stepRight();
         }
 
         if ($this->counter === 0)

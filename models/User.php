@@ -92,4 +92,9 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return $this->password === $password;
     }
+
+    public function solution()
+    {
+        return $this->hasOne(Solution::class, ['user_id' => 'id'])->one();
+    }
 }
