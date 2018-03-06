@@ -67,12 +67,8 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; Сергей Першин <?= date('Y') ?></p>
-
+        <p class="pull-left">&copy; Сергей Першин <?= date('Y') ?> <a href="mailto:qbic007@gmail.com"> qbic007@gmail.com</a></p>
         <p class="pull-right"><?= Yii::powered() ?></p>
-    </div>
-    <div class="container">
-        <p class="pull-left"><a href="mailto:qbic007@gmail.com">qbic007@gmail.com</a></p>
     </div>
 </footer>
 
