@@ -8,7 +8,6 @@
 
 namespace app\models;
 
-
 /**
  * Class ArrayWalker
  * @package app\models
@@ -49,15 +48,20 @@ class ArrayWalker
     {
         $this->number = $number;
         $this->array = $array;
-        end($this->array);
-        $this->right_key = key($this->array);
-        $this->size = $this->right_key + 1;
+        $this->size = count($array);
+    }
+
+    protected function reset_parameters()
+    {
+        $this->counter = 0;
+        $this->left_key = 0;
+        $this->right_key = $this->size - 1;
     }
 
     protected function stepLeft()
     {
         if ($this->number == $this->array[$this->left_key]) {
-            $this->counter++;
+            $this->counter += 1;
         }
         $this->left_key++;
     }
@@ -65,7 +69,7 @@ class ArrayWalker
     protected function stepRight()
     {
         if ($this->number != $this->array[$this->right_key]) {
-            $this->counter--;
+            $this->counter -= 1;
         }
         $this->right_key--;
     }
@@ -75,12 +79,27 @@ class ArrayWalker
      */
     public function solution()
     {
+        $this->reset_parameters();
+
         for ($i = 0; $i < $this->size; $i++) {
             if ($this->counter == 0) {
                 $this->stepLeft();
                 continue;
             }
             $this->stepRight();
+        }
+
+        if ($this->counter === 0)
+            return $this->left_key;
+
+        $this->reset_parameters();
+
+        for ($i = 0; $i < $this->size; $i++) {
+            if ($this->counter == 0) {
+                $this->stepRight();
+                continue;
+            }
+            $this->stepLeft();
         }
 
         if ($this->counter === 0)
