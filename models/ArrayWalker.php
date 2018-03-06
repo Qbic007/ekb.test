@@ -53,7 +53,7 @@ class ArrayWalker
 
     protected function reset_parameters()
     {
-        $this->counter = 0;
+        $this->counter = null;
         $this->left_key = 0;
         $this->right_key = $this->size - 1;
     }
