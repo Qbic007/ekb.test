@@ -14,7 +14,7 @@ use yii\web\IdentityInterface;
  */
 class Solution extends ActiveRecord
 {
-    public function findSolution(int $number = 0, string $array = '')
+    public function findSolution($number = 0, $array = '')
     {
         $array = explode(',', $array);
 

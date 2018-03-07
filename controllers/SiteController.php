@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\SolutionForm;
+use app\models\User;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -71,6 +72,7 @@ class SiteController extends Controller
 
         return $this->render('index', [
             'model' => $model,
+            'user' => User::findOne(['id' => Yii::$app->getUser()->getId()]),
         ]);
     }
 

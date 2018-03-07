@@ -6,6 +6,7 @@ use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
 $this->title = 'My Yii Application';
+$solution = $user ? $user->solution() : null;
 ?>
 <div class="site-index">
 
@@ -18,8 +19,13 @@ $this->title = 'My Yii Application';
 
     <? if (!Yii::$app->user->isGuest) { ?>
         <div class="body-content">
-
-            <p>Введите входные данные в поля ниже:</p>
+            <?php if ($solution) { ?>
+                <p class="lead">Последние вычисленные данные:</p>
+                <p>Число: <?= $solution->number ?></p>
+                <p>Массив: <?= $solution->array ?></p>
+                <p>Результат: <?= $solution->solution ?></p>
+            <? } ?>
+            <p class="lead">Введите входные данные в поля ниже:</p>
 
             <?php $form = ActiveForm::begin([
                 'id' => 'login-form',
