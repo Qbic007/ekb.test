@@ -26,18 +26,6 @@ class ArrayWalker
      * @var int
      */
     protected $size = 0;
-    /**
-     * @var int
-     */
-    protected $left_key = 0;
-    /**
-     * @var int
-     */
-    protected $right_key = 0;
-    /**
-     * @var int|null
-     */
-    protected $counter = null;
 
     /**
      * ArrayWalker constructor.
@@ -51,60 +39,31 @@ class ArrayWalker
         $this->size = count($array);
     }
 
-    protected function reset_parameters()
-    {
-        $this->counter = null;
-        $this->left_key = 0;
-        $this->right_key = $this->size - 1;
-    }
-
-    protected function stepLeft()
-    {
-        if ($this->number == $this->array[$this->left_key]) {
-            $this->counter += 1;
-        }
-        $this->left_key++;
-    }
-
-    protected function stepRight()
-    {
-        if ($this->number != $this->array[$this->right_key]) {
-            $this->counter -= 1;
-        }
-        $this->right_key--;
-    }
-
     /**
      * @return int
      */
     public function solution()
     {
-        $this->reset_parameters();
+        $counter = 0;
+        $array_forward = array_map(function ($item) use(&$counter) {
+            if ($item == $this->number)
+                $counter++;
+            return $counter;
+        }, $this->array);
 
-        for ($i = 0; $i < $this->size; $i++) {
-            if ($this->counter == 0) {
-                $this->stepLeft();
-                continue;
-            }
-            $this->stepRight();
+        $counter = 0;
+        $array_back = array_reverse(array_map(function ($item) use(&$counter) {
+            if ($item != $this->number)
+                $counter++;
+            return $counter;
+        }, array_reverse($this->array)));
+
+        for ($i = 1; $i < $this->size; $i++) {
+            if ($array_forward[$i - 1] && $array_forward[$i] && ($array_forward[$i - 1] == $array_back[$i]))
+                return $i;
         }
-
-        if ($this->counter === 0)
-            return $this->left_key;
-
-        $this->reset_parameters();
-
-        for ($i = 0; $i < $this->size; $i++) {
-            if ($this->counter == 0) {
-                $this->stepRight();
-                continue;
-            }
-            $this->stepLeft();
-        }
-
-        if ($this->counter === 0)
-            return $this->left_key;
 
         return -1;
+
     }
 }
