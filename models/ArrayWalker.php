@@ -45,18 +45,19 @@ class ArrayWalker
     public function solution()
     {
         $counter = 0;
-        $array_forward = array_map(function ($item) use(&$counter) {
+        $array_forward = array_map(function ($item) use (&$counter) {
             if ($item == $this->number)
                 $counter++;
             return $counter;
         }, $this->array);
 
         $counter = 0;
-        $array_back = array_reverse(array_map(function ($item) use(&$counter) {
-            if ($item != $this->number)
+        $array_back = [];
+        for ($i = $this->size - 1; $i >= 0; $i--) {
+            if ($this->array[$i] != $this->number)
                 $counter++;
-            return $counter;
-        }, array_reverse($this->array)));
+            $array_back[$i] = $counter;
+        }
 
         for ($i = 1; $i < $this->size; $i++) {
             if ($array_forward[$i - 1] && $array_forward[$i] && ($array_forward[$i - 1] == $array_back[$i]))
