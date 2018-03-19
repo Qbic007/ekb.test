@@ -9,8 +9,8 @@ class ArrayWalkerTest extends TestCase
 {
     public function testSolution()
     {
-        $arrayWalker = new ArrayWalker(5, [5,5,5,1]);
+        $arrayWalker = new ArrayWalker();
 
-        $this->assertEquals($arrayWalker->solution(), 1);
+        $this->assertEquals($arrayWalker->solution(5, [5,5,5,1]), 1);
     }
 }

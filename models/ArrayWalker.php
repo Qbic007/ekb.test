@@ -15,56 +15,43 @@ namespace app\models;
 class ArrayWalker
 {
     /**
-     * @var int
-     */
-    protected $number = 0;
-    /**
-     * @var array
-     */
-    protected $array = [];
-    /**
-     * @var int
-     */
-    protected $size = 0;
-
-    /**
-     * ArrayWalker constructor.
-     * @param $number
-     * @param $array
-     */
-    public function __construct($number, $array)
-    {
-        $this->number = $number;
-        $this->array = $array;
-        $this->size = count($array);
-    }
-
-    /**
      * @return int
      */
-    public function solution()
+    public function solution($number, $array)
     {
+        $size = count($array);
         $counter = 0;
-        $array_forward = array_map(function ($item) use (&$counter) {
-            if ($item == $this->number)
-                $counter++;
-            return $counter;
-        }, $this->array);
+        $left_index = 0;
+        $right_index = 0;
 
-        $counter = 0;
-        $array_back = [];
-        for ($i = $this->size - 1; $i >= 0; $i--) {
-            if ($this->array[$i] != $this->number)
-                $counter++;
-            $array_back[$i] = $counter;
+        for ($i = 0; $i < $size; $i++) {
+
+            if ($left_index + $right_index >= $size)
+                break;
+
+            $left_counter = $counter;
+            $right_counter = $counter;
+
+            if ($array[$left_index] === $number)
+                $left_counter++;
+
+            if ($array[$size - $right_index - 1] !== $number)
+                $right_counter++;
+
+            if ($left_counter > $right_counter) {
+                $right_index++;
+                continue;
+            }
+            if ($left_counter < $right_counter) {
+                $left_index++;
+                continue;
+            }
+            $left_index++;
+            $right_index++;
+            $counter = $left_counter;
         }
 
-        for ($i = 1; $i < $this->size; $i++) {
-            if ($array_forward[$i - 1] && $array_forward[$i] && ($array_forward[$i - 1] == $array_back[$i]))
-                return $i;
-        }
-
-        return -1;
+        return $counter ? $left_index : -1;
 
     }
 }

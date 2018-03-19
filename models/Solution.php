@@ -23,8 +23,8 @@ class Solution extends ActiveRecord
             return (int)$item;
         }, $array);
 
-        $arrayWalker = new ArrayWalker($number, $array);
-        $solution = $arrayWalker->solution();
+        $arrayWalker = new ArrayWalker();
+        $solution = $arrayWalker->solution($number, $array);
 
         $this->user_id = \Yii::$app->getUser()->id;
         $this->number = $number;
